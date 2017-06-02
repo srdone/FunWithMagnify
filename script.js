@@ -10,7 +10,7 @@ function init() {
 
     mouseMoves.subscribe(console.log);
 
-    magnify(image[0], {debug: true, speed: 1000, src: ["https://static.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg"]});
+    magnify(image[0], {debug: true, speed: 1000, src: ["https://static.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg", "https://ak6.picdn.net/shutterstock/videos/6696536/thumb/5.jpg?i10c=img.resize(height:100)"]});
 }
 
 //Pseudocode explaining how the positioning works

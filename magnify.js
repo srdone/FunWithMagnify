@@ -66,9 +66,6 @@
           loaded = false,
           errored = false;
 
-          console.log(inst.alter);
-          console.log(mImgs);
-
       container.addEventListener('mouseover', function () {
         if( ! errored) {
           mImgs.forEach(function(img, idx) {
@@ -114,10 +111,10 @@
         lens.style.top = y - lhh + 'px';
         // ratio
         if(loaded) {
-          lens.style.backgroundPosition = mImgs.reduce(function (acc, mImg) {
+          lens.style.backgroundPosition = mImgs.reduce(function (acc, mImg, idx) {
             rx = Math.round(x / img.width * mImg.width - lhw) * -1;
             ry = Math.round(y / img.height * mImg.height - lhh) * -1;
-            acc += (rx + 'px ' + ry + 'px');
+            acc += (rx + 'px ' + ry + 'px') + (idx < mImgs.length - 1 ? "," : "");
             return acc;
           }, "");
           console.log("lens positioning", {top: lens.style.top, left: lens.style.left, backgroundPosition: lens.style.backgroundPosition});
