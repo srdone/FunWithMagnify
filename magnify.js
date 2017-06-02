@@ -62,13 +62,18 @@
           container = inst.container,
           lens = inst.lens,
           img = inst.image,
-          mImg = new Image(),
+          mImgs = inst.alter.reduce(function (acc, val) { acc.push(new Image()); return acc; }, []),
           loaded = false,
           errored = false;
 
+          console.log(inst.alter);
+          console.log(mImgs);
+
       container.addEventListener('mouseover', function () {
         if( ! errored) {
-          mImg.src = inst.alter;
+          mImgs.forEach(function(img, idx) {
+              img.src = inst.alter[idx];
+          })
         }
         lens.style.opacity = 1;
       });
@@ -109,22 +114,28 @@
         lens.style.top = y - lhh + 'px';
         // ratio
         if(loaded) {
-          rx = Math.round(x / img.width * mImg.width - lhw) * -1;
-          ry = Math.round(y / img.height * mImg.height - lhh) * -1;
-          lens.style.backgroundPosition = rx + 'px ' + ry + 'px';
+          lens.style.backgroundPosition = mImgs.reduce(function (acc, mImg) {
+            rx = Math.round(x / img.width * mImg.width - lhw) * -1;
+            ry = Math.round(y / img.height * mImg.height - lhh) * -1;
+            acc += (rx + 'px ' + ry + 'px');
+            return acc;
+          }, "");
+          console.log("lens positioning", {top: lens.style.top, left: lens.style.left, backgroundPosition: lens.style.backgroundPosition});
         }
       }
 
-      mImg.addEventListener('load', function () {
-        loaded = true;
-        lens.className = 'magnify-lens';
-        lens.style.background = 'url(' + inst.alter + ') no-repeat';
-      });
+      mImgs.forEach(function (mImg, idx) {
+        mImg.addEventListener('load', function () {
+            loaded = true;
+            lens.className = 'magnify-lens';
+            lens.style.background = 'url(' + inst.alter[idx] + ') no-repeat';
+        });
 
-      mImg.addEventListener('error', function () {
-        errored = true;
-        lens.className = 'magnify-lens magnify-error';
-      });
+        mImg.addEventListener('error', function () {
+            errored = true;
+            lens.className = 'magnify-lens magnify-error';
+        });
+      })
     }
   };
 
