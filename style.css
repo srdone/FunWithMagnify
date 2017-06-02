@@ -1,3 +1,11 @@
 .display-image {
-  height: 300px;
+    height: 300px;
+}
+
+.stamp-image {
+    height: 100px;
+    position: absolute;
+    left: 10px;
+    top: 30px;
+    pointer-events: none;
 }
