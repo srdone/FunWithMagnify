@@ -1,0 +1,8 @@
+{
+  "name": "FunWithMagnify",
+  "version": "1.0.0",
+  "description": "\"Testing out some ideas for enhancing http://thdoan.github.io/magnify\"",
+  "main": "index.js",
+  "author": "Stephen Done <sdone@simplifile.com>",
+  "license": "MIT"
+}
