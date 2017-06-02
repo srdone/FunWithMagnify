@@ -2,7 +2,12 @@
   "name": "FunWithMagnify",
   "version": "1.0.0",
   "description": "\"Testing out some ideas for enhancing http://thdoan.github.io/magnify\"",
-  "main": "index.js",
+  "scripts": {
+    "start": "live-server"
+  },
   "author": "Stephen Done <sdone@simplifile.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.0"
+  }
 }
