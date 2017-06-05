@@ -10,12 +10,15 @@
   var initialized = [];
 
   function Magnify(el, opts) {
+      console.log(el);
+
     var anchor;
-    if(!~initialized.indexOf(el)) {
-      initialized.push(el);
+    // if(!~initialized.indexOf(el)) {
+    //   initialized.push(el);
 
       this.opts = opts;
       this.image = anchor = el;
+      console.log(this.image);
 
       // Detect closest anchor
       while (anchor) {
@@ -24,14 +27,11 @@
         }
         anchor = anchor.parentElement;
       }
-      this.alter = el.getAttribute('data-magnify')
-                || (anchor && anchor.getAttribute('href'))
-                || opts.src
-                || '';
-
+      this.alter = opts.src
+    
       this.wrap();
       this.zoom();
-    }
+    // }
   }
 
   Magnify.prototype = {
@@ -50,8 +50,8 @@
 
       // Append
       container.appendChild(lens);
-      image.parentNode.insertBefore(container, image);
-      container.appendChild(image);
+      image[0].parentNode.insertBefore(container, image[0]);
+      container.appendChild(image[0]);
 
       inst.container = container;
       inst.lens = lens;
@@ -61,7 +61,7 @@
       var inst = this,
           container = inst.container,
           lens = inst.lens,
-          img = inst.image,
+          imgs = inst.image,
           mImgs = inst.alter.reduce(function (acc, val) { acc.push(new Image()); return acc; }, []),
           loaded = false,
           errored = false;
@@ -112,12 +112,12 @@
         // ratio
         if(loaded) {
           lens.style.backgroundPosition = mImgs.reduce(function (acc, mImg, idx) {
-            rx = Math.round(x / img.width * mImg.width - lhw) * -1;
-            ry = Math.round(y / img.height * mImg.height - lhh) * -1;
+            rx = Math.round(x / imgs[idx].width * mImg.width - lhw) * -1;
+            ry = Math.round(y / imgs[idx].height * mImg.height - lhh) * -1;
             acc += (rx + 'px ' + ry + 'px') + (idx < mImgs.length - 1 ? "," : "");
+            console.log(mImg); 
             return acc;
           }, "");
-          console.log("lens positioning", {top: lens.style.top, left: lens.style.left, backgroundPosition: lens.style.backgroundPosition});
         }
       }
 
@@ -125,7 +125,7 @@
         mImg.addEventListener('load', function () {
             loaded = true;
             lens.className = 'magnify-lens';
-            lens.style.background = 'url(' + inst.alter[idx] + ') no-repeat';
+            lens.style.background = 'url(' + inst.alter[1] + ') no-repeat, url(' + inst.alter[0] + ') no-repeat';
         });
 
         mImg.addEventListener('error', function () {
@@ -140,13 +140,13 @@
     var i;
 
     // Detect element
-    if(typeof el === 'string') {
-      el = document.querySelectorAll(el);
-    } else if(typeof el === 'object' && el.nodeType) {
-      el = [el];
-    } else if( ! el.length) {
-      el = [];
-    }
+    // if(typeof el === 'string') {
+    //   el = document.querySelectorAll(el);
+    // } else if(typeof el === 'object' && el.nodeType) {
+    //   el = [el];
+    // } else if( ! el.length) {
+    //   el = [];
+    // }
 
     // Options
     if(typeof opts !== 'object') {
@@ -156,13 +156,13 @@
     opts.speed = opts.speed || 200;
 
     // Iterator
-    if(el.length) {
-      for(i = el.length - 1; i != -1; i -= 1) {
-        if(el[i].nodeType) {
-          new Magnify(el[i], opts)
-        }
-      }
-    }
+    // if(el.length) {
+    //   for(i = el.length - 1; i != -1; i -= 1) {
+        // if(el[i].nodeType) {
+          new Magnify(el, opts)
+        // }
+      // }
+    // }
   };
 
   // jQuery wrapper

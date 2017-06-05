@@ -1,16 +1,19 @@
 window.onload = init;
 
 function init() {
-    var image = document.getElementsByClassName("display-image");
-    console.log(image);
+    var image = document.getElementsByClassName("display-image")[0];
+    var stampImage = document.getElementsByClassName("stamp-image")[0];
 
-    var mouseMoves = Rx.Observable.fromEvent(image[0], 'mousemove');
-    var mouseEnter = Rx.Observable.fromEvent(image[0], 'mouseenter');
-    var mouseLeave = Rx.Observable.fromEvent(image[0], 'mouseleave');
+    var mouseMoves = Rx.Observable.fromEvent(image, 'mousemove');
+    var mouseEnter = Rx.Observable.fromEvent(image, 'mouseenter');
+    var mouseLeave = Rx.Observable.fromEvent(image, 'mouseleave');
 
-    mouseMoves.subscribe(console.log);
+//    mouseMoves.subscribe(console.log);
 
-    magnify(image[0], {debug: true, speed: 1000, src: ["https://static.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg", "https://ak6.picdn.net/shutterstock/videos/6696536/thumb/5.jpg?i10c=img.resize(height:100)"]});
+    magnify([image, stampImage], {debug: true, speed: 1000, src: [
+        "https://static.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg",
+        "https://ak6.picdn.net/shutterstock/videos/6696536/thumb/5.jpg"
+    ]});
 }
 
 //Pseudocode explaining how the positioning works
