@@ -5,7 +5,19 @@
 .stamp-image {
     height: 100px;
     position: absolute;
-    left: 10px;
+    left: 20px;
     top: 30px;
     pointer-events: none;
+}
+
+.image-container {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+}
+
+.page-container {
+    position: absolute;
+    left: 10px;
+    top: 20px;
 }
